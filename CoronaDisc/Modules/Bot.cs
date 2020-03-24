@@ -11,9 +11,8 @@ namespace CoronaDisc
     public class Bot
     {
         public DiscordClient Client { get; private set; }
-
         public CommandsNextExtension Commands { get; private set; }
-
+        public DiscordActivity activity { get; set; }
         public DiscordRichPresence RichPresence { get; set; }
         public DiscordChannel channel { get; set; }
 
@@ -45,6 +44,9 @@ namespace CoronaDisc
                 IgnoreExtraArguments = false,
             };
 
+
+            
+
             Commands = Client.UseCommandsNext(commandsCongif);
 
             Commands.RegisterCommands<CommandsTest>();
@@ -54,9 +56,12 @@ namespace CoronaDisc
             await Task.Delay(-1);
         }
         
-        private Task OnClientReady(ReadyEventArgs e)
+        private async Task OnClientReady(ReadyEventArgs e)
         {
-            return Task.CompletedTask;
+            activity = new DiscordActivity();
+            activity.Name = "use ?help";
+            Client.UpdateStatusAsync(activity);
+            await Task.Delay(1);
         }
 
     }

@@ -4,7 +4,9 @@ using DSharpPlus.CommandsNext;
 using System.Text.RegularExpressions;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
+using System.Drawing;
 using System.Net;
+using System.IO;
 using System.Timers;
 
 namespace CoronaDisc
@@ -111,7 +113,8 @@ namespace CoronaDisc
             if (total >= 1000)
                 builder.Color = DiscordColor.Red;
             builder.Color = DiscordColor.Red;
-            builder.AddField(text.ToUpper(), "Total : " + s[1] + "\nRecovred : " + s[5] + "\nDeaths : " + s[7], false);
+            int activeCases = Convert.ToInt32(s[1]) - Convert.ToInt32(s[5]) - Convert.ToInt32(s[7]);
+            builder.AddField(text.ToUpper(), "Total : " + s[1] + "\nRecovred : " + s[5] + "\nDeaths : " + s[7] + "\nActive Cases : "  + activeCases , false);
 
             await ctx.Channel.SendMessageAsync("", false, builder.Build()).ConfigureAwait(false);
         }
@@ -151,7 +154,8 @@ namespace CoronaDisc
             if (total >= 1000)
                 builder.Color = DiscordColor.Red;
             builder.Color = DiscordColor.Red;
-            builder.AddField(text.ToUpper(), "Total : " + s[1] + "\nRecovred : " + s[5] + "\nDeaths : " + s[7], false);
+            int activeCases = Convert.ToInt32(s[1]) - Convert.ToInt32(s[5]) - Convert.ToInt32(s[7]);
+            builder.AddField(text.ToUpper(), "Total : " + s[1] + "\nRecovred : " + s[5] + "\nDeaths : " + s[7] + "\nActive Cases : " + activeCases, false);
 
             await ctx.Channel.SendMessageAsync("", false, builder.Build()).ConfigureAwait(false);
         }
